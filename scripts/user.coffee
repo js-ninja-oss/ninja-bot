@@ -1,14 +1,21 @@
 module.exports = (robot) ->
   robot.hear /github (\w*)/i, (res) ->
-    # TODO: save user account
-    console.log res
     github = res.match[1]
     userId = res.message.user.id
-    res.send "Your user id is " + userId + "."
-    res.send "I'm going to set your github account as @" + github + "."
 
-    count = robot.brain.get 'count'
-    count = 0 unless count
-    count += 1
-    robot.brain.set 'count', count
-    res.send "" + count
+    users = robot.brain.get 'users'
+    users = {} unless users
+    users[userId] = { github: github }
+    robot.brain.set 'users', users
+    console.log users
+    res.send 'I set your github account as @' + github + '.'
+
+  robot.hear /info/i, (res) ->
+    userId = res.message.user.id
+    users = robot.brain.get 'users'
+    reply = ''
+    if users && users[userId]
+      reply = 'I your github account is @' + users[userId]['github'] + '.'
+    else
+      reply = 'tell me your account by saying "github AccountName"'
+    res.send reply
