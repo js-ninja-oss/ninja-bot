@@ -9,18 +9,8 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
 module.exports = (robot) ->
-
-  robot.respond /ninja/i, (res) ->
-    res.reply "Year, ninja."
-
-  robot.hear /I like pie/i, (res) ->
-    res.emote "makes a freshly baked pie"
-
-  robot.hear /@\w+/, (res) ->
-    res.send "...!"
-  #
-  # robot.respond /lulz/i, (res) ->
-  #   res.send res.random lulz
+  robot.hear /\w+/i, (res) ->
+    res.send 'ninja!'
   #
   # robot.topic (res) ->
   #   res.send "#{res.message.text}? That's a Paddlin'"
