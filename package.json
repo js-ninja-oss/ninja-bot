@@ -30,6 +30,7 @@
     "mocha": "^5.2.0"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register tests"
+    "test": "mocha --compilers coffee:coffee-script/register tests",
+    "test:watch": "mocha --watch --compilers coffee:coffee-script/register tests"
   }
 }
