@@ -24,14 +24,16 @@
     "node": "8.10.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
     "co": "^4.6.0",
-    "coffee-script": "^1.12.7",
     "hubot-test-helper": "^1.9.0",
-    "mocha": "^5.2.0"
+    "jest": "^23.6.0",
+    "jest-extended": "^0.11.0"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register tests",
-    "test:watch": "mocha --watch --compilers coffee:coffee-script/register tests"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "jest-extended"
   }
 }

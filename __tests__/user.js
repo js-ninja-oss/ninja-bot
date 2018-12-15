@@ -1,24 +1,23 @@
 const Helper = require('hubot-test-helper');
 // helper loads all scripts passed a directory
 const helper = new Helper('../scripts');
-const co     = require('co');
-const expect = require('chai').expect;
+const co = require('co');
 const githubs = [
   'ggtmtmgg',
   'yushimatenjin',
 ]
 
-describe('test repository.coffee', function() {
-  beforeEach(function() {
+describe('test repository.js', function () {
+  beforeEach(function () {
     this.room = helper.createRoom();
   });
-  afterEach(function() {
+  afterEach(function () {
     this.room.destroy();
   });
 
-  context('user asks adding github account', function() {
-    beforeEach(function() {
-      return co(function*() {
+  describe('user asks adding github account', function () {
+    beforeEach(function () {
+      return co(function* () {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);
         yield this.room.user.say('user1', 'user info');
         yield this.room.user.say('user2', `user github ${githubs[1]}`);
@@ -26,7 +25,7 @@ describe('test repository.coffee', function() {
       }.bind(this));
     });
 
-    it('should add github accounts', function() {
+    it('should add github accounts', function () {
       expect(this.room.messages).to.eql([
         ['user1', `user github ${githubs[0]}`],
         ['hubot', `I set your github account as @${githubs[0]}.`],
