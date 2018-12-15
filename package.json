@@ -21,5 +21,15 @@
   },
   "engines": {
     "node": "8.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "co": "^4.6.0",
+    "coffee-script": "^1.12.7",
+    "hubot-test-helper": "^1.9.0",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register tests"
   }
 }
