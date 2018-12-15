@@ -13,5 +13,11 @@ describe('test ghHelpers', function () {
       const prs = ghHelper.getPrs('denoland/deno');
       assert.hasAllKeys(prs[0], ['url', 'user', 'state', 'repo']);
     });
+
+    it('should return exact repo full name', function () {
+      const repoName = 'denoland/deno';
+      const prs = ghHelper.getPrs(repoName);
+      assert(prs[0].repo.full_name === repoName);
+    });
   });
 });
