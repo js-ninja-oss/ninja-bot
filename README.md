@@ -12,6 +12,8 @@ available, etc!
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
+### Comands
+
 ### Running ninja-bot Locally
 
 You can test your hubot by running the following, however some plugins will not
@@ -20,19 +22,9 @@ upon have been set.
 
 You can start ninja-bot locally by running:
 
-    % bin/hubot
+    % HUBOT_SLACK_TOKEN=xoxb-XXXXXXXXXXXX-XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXX ./bin/hubot --adapter slack
 
-You'll see some start up output and a prompt:
-
-    [Sat Feb 28 2015 12:38:27 GMT+0000 (GMT)] INFO Using default redis on localhost:6379
-    ninja-bot>
-
-Then you can interact with ninja-bot by typing `ninja-bot help`.
-
-    ninja-bot> ninja-bot help
-    ninja-bot animate me <query> - The same thing as `image me`, except adds [snip]
-    ninja-bot help - Displays all of the help commands that ninja-bot knows about.
-    ...
+And send slack message to bot.
 
 ### Configuration
 
