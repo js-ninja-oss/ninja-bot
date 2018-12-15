@@ -8,5 +8,10 @@ describe('test ghHelpers', function () {
       const prs = ghHelper.getPrs('denoland/deno');
       assert.isArray(prs);
     });
+
+    it('should return pull request object', function () {
+      const prs = ghHelper.getPrs('denoland/deno');
+      assert.hasAllKeys(prs[0], ['url', 'user', 'state', 'repo']);
+    });
   });
 });
