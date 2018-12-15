@@ -7,7 +7,6 @@ const repos = [
   'https://github.com/facebook/react-native',
   'https://github.com/denoland/deno',
 ];
-const rnRepo = 'https://github.com/facebook/react-native';
 
 describe('test repository.coffee', function() {
   beforeEach(function() {
@@ -21,9 +20,9 @@ describe('test repository.coffee', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', 'repo list');
-        yield this.room.user.say('user1', 'repo add https://repo.com/1');
+        yield this.room.user.say('user1', `repo add ${repos[0]}`);
         yield this.room.user.say('user1', 'repo list');
-        yield this.room.user.say('user2', 'repo add https://repo.com/2');
+        yield this.room.user.say('user2', `repo add ${repos[1]}`);
         yield this.room.user.say('user2', 'repo list');
       }.bind(this));
     });
@@ -32,14 +31,14 @@ describe('test repository.coffee', function() {
       expect(this.room.messages).to.eql([
         ['user1', 'repo list'],
         ['hubot', 'add repositories by saying "repo add url"'],
-        ['user1', 'repo add https://repo.com/1'],
-        ['hubot', 'I added https://repo.com/1 to repos list.'],
+        ['user1', `repo add ${repos[0]}`],
+        ['hubot', `I added ${repos[0]} to repos list.`],
         ['user1', 'repo list'],
-        ['hubot', 'https://repo.com/1'],
-        ['user2', 'repo add https://repo.com/2'],
-        ['hubot', 'I added https://repo.com/2 to repos list.'],
+        ['hubot', repos[0]],
+        ['user2', `repo add ${repos[1]}`],
+        ['hubot', `I added ${repos[1]} to repos list.`],
         ['user2', 'repo list'],
-        ['hubot', 'https://repo.com/1\nhttps://repo.com/2'],
+        ['hubot', repos.join('\n')],
       ]);
     });
   });
