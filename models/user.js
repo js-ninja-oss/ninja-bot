@@ -2,6 +2,7 @@ module.exports = class User {
   constructor(obj) {
     this.github = obj.github;
     this.slackId = obj.slackId;
+    this.prCount = obj.prCount;
   }
 
   static find(brain, slackId) {
@@ -15,7 +16,7 @@ module.exports = class User {
     return new User(user);
   }
 
-  static list(brain){
+  static all(brain){
     const users = brain.get('users');
     /* TODO: モデル化して返す
     return users.map(user => new User(user));
