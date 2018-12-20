@@ -1,5 +1,5 @@
-module.exports = function(robot) {
-  return robot.hear(/ninja/i, function(res) {
+module.exports = robot => {
+  return robot.hear(/ninja/i, res => {
     return res.send('ninja!');
   });
 };

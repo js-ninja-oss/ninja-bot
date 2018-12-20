@@ -1,13 +1,13 @@
 const Repo = require('../models/repo');
 
-module.exports = function (robot) {
-  robot.hear(/repo add (.*)/i, function (res) {
+module.exports = robot => {
+  robot.hear(/repo add (.*)/i, res => {
     const orgTitle = res.match[1];
     Repo.add(robot.brain, orgTitle)
     return res.send(`I added ${orgTitle} to repos list.`);
   });
 
-  return robot.hear(/repo list/i, function (res) {
+  return robot.hear(/repo list/i, res => {
     const repos = Repo.all(robot.brain);
     if (repos) {
       reply = repos.join('\n');

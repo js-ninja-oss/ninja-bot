@@ -1,14 +1,14 @@
 const User = require('../models/user');
 
-module.exports = function (robot) {
-  robot.hear(/user github (\w*)/i, function (res) {
+module.exports = robot => {
+  robot.hear(/user github (\w*)/i, res => {
     const github = res.match[1];
     const userId = res.message.user.id;
     User.updateGithub(robot.brain, userId, github)
     return res.send('I set your github account as @' + github + '.');
   });
 
-  return robot.hear(/user info/i, function (res) {
+  return robot.hear(/user info/i, res => {
     const userId = res.message.user.id;
     const user = User.find(robot.brain, userId);
     let reply;
