@@ -17,10 +17,24 @@ module.exports = class User {
   }
 
   static all(brain){
-    const users = brain.get('users');
-    /* TODO: モデル化して返す
-    return users.map(user => new User(user));
-    */
+    // TODO: ちゃんと返す
+    // const users = brain.get('users');
+    return [
+      new User({
+        github: 'ggtmtmgg',
+        slackId: 'slackId1',
+        prCount: 0,
+      }),
+      new User({
+        github: 'watanabeyu',
+        slackId: 'slackId2',
+        prCount: 0,
+      }),
+    ];
+  }
+ 
+  static allGithubs(brain){
+    return User.all().map(user => user.github);
   }
 
   static updateGithub(brain, slackId, github) {

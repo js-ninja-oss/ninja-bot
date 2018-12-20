@@ -6,11 +6,17 @@ module.exports = class Repo {
   }
 
   static all(brain){
-    const repos = brain.get('repos');
-    /* TODO: モデル化して返す
-    return repos.map(repo => new Repo(repo));
-    */
-    return repos;
+    // TODO: ちゃんと返す
+    // const repos = brain.get('repos');
+    
+    return [
+      new Repo('denoland/deno'),
+      new Repo('facebook/react-native'),
+    ];
+  }
+
+  static allUrls(brain){
+    return Repo.all().map(repo => repo.url);
   }
 
   static add(brain, orgTitle) {

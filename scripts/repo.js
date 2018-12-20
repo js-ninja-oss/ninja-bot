@@ -8,7 +8,7 @@ module.exports = robot => {
   });
 
   return robot.hear(/repo list/i, res => {
-    const repos = Repo.all(robot.brain);
+    const repos = Repo.allUrls(robot.brain);
     if (repos) {
       reply = repos.join('\n');
     } else {
