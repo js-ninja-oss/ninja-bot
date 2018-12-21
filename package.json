@@ -5,7 +5,9 @@
   "author": "ggtmtmgg <xxx.tubasa0226@gmail.com>",
   "description": "A bot for JS Ninja",
   "dependencies": {
+    "config": "^3.0.1",
     "github-api": "^3.0.0",
+    "graphql-request": "^1.8.2",
     "hubot": "^3.1.1",
     "hubot-diagnostics": "^1.0.0",
     "hubot-google-images": "^0.2.7",
