@@ -3,7 +3,8 @@ const User = require('../models/user');
 
 module.exports = robot => {
   robot.hear(/crawl start/i, res => {
-    repoCrawler(robot.brain);
+    const allUser = User.all();
+    for(user in allUser) user.updatePrs(robot.brain, res);
   });
 
   robot.hear(/crawl myself/i, res => {
