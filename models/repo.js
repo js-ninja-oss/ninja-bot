@@ -1,8 +1,8 @@
 module.exports = class Repo {
   constructor(nameWithOwner) {
     this.url = `https://github.com/${nameWithOwner}`
-    this.org = nameWithOwner.split('/')[0];
-    this.title = nameWithOwner.split('/')[1];
+    this.owner = nameWithOwner.split('/')[0];
+    this.name = nameWithOwner.split('/')[1];
   }
 
   static all(brain){
