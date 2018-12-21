@@ -2,6 +2,10 @@ const User = require('../models/user');
 const ghClient = require('../api-clients/github');
 
 const dateToMonth = date => date.getYear() * 12 + date.getMonth();
+const filterMonth = prs => {
+  const thisMonth = dateToMonth(new Date());
+  return prs.filter(pr => dateToMonth(new Date(pr.createdAt)) === thisMonth;
+}
 
 module.exports = class Pr {
   constructor(obj) {
@@ -12,29 +16,17 @@ module.exports = class Pr {
     this.createdAt = obj.createdAt;
   }
 
-  static async all(brain) {
-    const ghNames = User.allGhNames(brain);
-    let prs = [];
-    for (const ghName of ghNames){
-      prs = prs.concat(await Pr.byUser(ghName));
-    }
-    return prs;
+  static async byUser(user) {
+    const prs = await ghClient.userPrs(user.ghName);
+    return prs.map(pr => new Pr(pr.node));
   }
 
-  static async byUser(ghName) {
-    const ghPrs = await ghClient.userPrs(ghName);
-    return ghPrs.map(ghPr => new Pr(ghPr.node));
+  static async updatePrCount(brain, user, onFinish) {
+    const ghPrs = await Pr.byUser(user);
+    const ghPrsMonth = filterMonth(ghPrs);
+    user.ghPrCount = ghPrs.length;
+    user.ghPrCountMonth = ghPrsMonth.length;
+    user.save(brain);
+    onFinish(user);
   }
-
-  static async filterThisMonth(prs) {
-    const thisMonth = dateToMonth(new Date());
-    return prs.filter(pr => dateToMonth(new Date(pr.createdAt)) === thisMonth);
-  }
-
-  static async byMember(brain) {
-    // TODO: filter by member
-    const prs = await Pr.all(brain);
-    const repos = Repo.all(brain);
-  }
-
 }

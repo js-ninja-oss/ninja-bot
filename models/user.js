@@ -5,6 +5,7 @@ module.exports = class User {
     this.ghName = obj.ghName;
     this.slackId = obj.slackId;
     this.ghPrCount = obj.ghPrCount || -1;
+    this.ghPrCountMonth = obj.ghPrCountMonth || -1;
   }
 
   static find(brain, slackId) {
@@ -33,24 +34,22 @@ module.exports = class User {
 
   async ghPrs(){
     const Pr = require('./pr');
-    this.prs = await Pr.byUser(this.ghName);
+    this.prs = await Pr.byUser(this);
     return this.prs;
   }
 
   async updatePrs(brain, res){
     const Pr = require('./pr');
-    let prs = await this.ghPrs();
-    this.ghPrCount = prs.length;
-    this.save(brain);
-
-    res.send(`updated ${this.ghName}'s pr count as ${prs.length}`);
+    const onFinish = user => res.send(user.info());
+    Pr.updatePrCount(brain, this, onFinish)
   }
 
   info() {
     if (this.ghName) return `
       ID: ${this.slackId}
       GitHub: @${this.ghName}
-      PR(This Month): ${this.ghPrCount}
+      PR(All Time): ${this.ghPrCount}
+      PR(This Month): ${this.ghPrCountMonth}
     `;
     return 'Set github name by "user github AccountName"';
   }
