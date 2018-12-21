@@ -2,7 +2,7 @@
 const GraphQLClient = require('graphql-request').GraphQLClient;
 const endpoint = 'https://api.github.com/graphql';
 const config = require('config');
-const token = config.get('github.token');
+const token = process.env.GITHUB_TOKEN || config.get('github.token');
 const headers = {
   'Authorization': `Bearer ${token}`,
 }
