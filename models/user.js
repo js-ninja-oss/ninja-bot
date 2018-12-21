@@ -9,12 +9,8 @@ module.exports = class User {
 
   static find(brain, slackId) {
     const users = brain.get('users');
-    let user;
-    if (users && users[slackId]) {
-      user = users[slackId];
-    } else {
-      user = { slackId: slackId };
-    }
+    let user = { slackId: slackId };
+    if (users && users[slackId]) user = users[slackId];
     return new User(user);
   }
 
@@ -38,15 +34,10 @@ module.exports = class User {
   }
 
   static updateGhName(brain, slackId, ghName) {
-    let users = brain.get('users');
-    if (!users) {
-      users = {};
-    }
-    users[slackId] = {
-      ghName: ghName,
-      slackId: slackId,
-    };
-    brain.set('users', users); // TODO: モデル側でsaveをする
+    const user = User.find(brain, slackId);
+    user.ghName = ghName;
+    user.save(brain);
+
     return true;
   }
 
@@ -58,10 +49,10 @@ module.exports = class User {
 
   async updatePrs(brain, res){
     const Pr = require('./pr');
-    let users = brain.get('users');
     let prs = await this.ghPrs();
-    users[this.slackId].ghPrCount = prs.length;
-    brain.set('users', users);
+    this.ghPrCount = prs.length;
+    this.save(brain);
+
     res.send(`updated ${this.ghName}'s pr count as ${prs.length}`);
   }
 
@@ -72,5 +63,12 @@ module.exports = class User {
       PR(This Month): ${this.ghPrCount}
     `;
     return 'Set github name by "user github AccountName"';
+  }
+
+  save(brain) {
+    let users = brain.get('users');
+    if (!users) users = {};
+    users[this.slackId] = this;
+    brain.set('users', users);
   }
 }

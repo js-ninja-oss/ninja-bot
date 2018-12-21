@@ -1,4 +1,3 @@
-const repoCrawler = require('../crawlers/repo');
 const User = require('../models/user');
 
 module.exports = robot => {
