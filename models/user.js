@@ -4,7 +4,9 @@ module.exports = class User {
   constructor(obj) {
     this.ghName = obj.ghName;
     this.slackId = obj.slackId;
+    this.ghPrs = obj.ghPrs || [];
     this.ghPrCount = obj.ghPrCount || -1;
+    this.ghPrsMonth = obj.ghPrsMonth || [];
     this.ghPrCountMonth = obj.ghPrCountMonth || -1;
   }
 
@@ -49,9 +51,11 @@ module.exports = class User {
       ID: ${this.slackId}
       GitHub: @${this.ghName}
       PR(All Time): ${this.ghPrCount}
-      PR(This Month): ${this.ghPrCountMonth}
+      PR Count(This Month): ${this.ghPrCountMonth}
+      PR(This Month):
+      ${this.ghPrsMonth.join('\n')}
     `;
-    return 'Set github name by "user github AccountName"';
+    return 'Set github name by "user github AccuntName"';
   }
 
   save(brain) {
