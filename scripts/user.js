@@ -9,21 +9,16 @@ module.exports = robot => {
     return res.send('I set your github account as @' + ghName + '.');
   });
 
-  return robot.hear(/user info/i, res => {
+  return robot.hear(/user all/i, res => {
+    const users = User.all(robot.brain);
+    const replay = users.map(user => user.info()).join("\n--------\n");
+    return res.send(replay);
+  });
+
+  // TODO: 何故か3つめ以降のhearを拾えない
+  return robot.hear(/user me/i, res => {
     const slackId = res.message.user.id;
     const user = User.find(robot.brain, slackId);
     return res.send(user.info());
-  });
-
-  return robot.hear(/user prs/i, res => {
-    const userId = res.message.user.id;
-    const user = User.find(robot.brain, userId);
-    let reply;
-    if (user.ghPrCount) {
-      reply = `Your this month's pr count is @${user.ghPrCount}.`;
-    } else {
-      reply = 'tell me your account by saying "user github AccountName"';
-    }
-    return res.send(reply);
   });
 };

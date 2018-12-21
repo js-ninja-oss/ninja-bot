@@ -15,18 +15,8 @@ module.exports = class User {
   }
 
   static all(brain) {
-    // TODO: ちゃんと返す
-    // const users = brain.get('users');
-    return [
-      new User({
-        ghName: 'ggtmtmgg',
-        slackId: 'slackId1',
-      }),
-      new User({
-        ghName: 'watanabeyu',
-        slackId: 'slackId2',
-      }),
-    ];
+    const users = brain.get('users');
+    return Object.values(users).map(user => new User(user))
   }
 
   static allGhNames(brain) {
