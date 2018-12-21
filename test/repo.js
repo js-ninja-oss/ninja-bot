@@ -4,9 +4,11 @@ const helper = new Helper('../scripts');
 const co     = require('co');
 const expect = require('chai').expect;
 const repos = [
-  'https://github.com/facebook/react-native',
-  'https://github.com/denoland/deno',
+  'denoland/deno',
+  'facebook/react-native',
 ];
+
+const repoUrls = repos.map(repo => `https://github.com/${repo}`);
 
 describe('test repository.coffee', function() {
   beforeEach(function() {
@@ -34,11 +36,11 @@ describe('test repository.coffee', function() {
         ['user1', `repo add ${repos[0]}`],
         ['hubot', `I added ${repos[0]} to repos list.`],
         ['user1', 'repo list'],
-        ['hubot', repos[0]],
+        ['hubot', repoUrls[0]],
         ['user2', `repo add ${repos[1]}`],
         ['hubot', `I added ${repos[1]} to repos list.`],
         ['user2', 'repo list'],
-        ['hubot', repos.join('\n')],
+        ['hubot', repoUrls.join('\n')],
       ]);
     });
   });

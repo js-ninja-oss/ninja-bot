@@ -9,7 +9,7 @@ module.exports = robot => {
 
   return robot.hear(/repo list/i, res => {
     const repos = Repo.allUrls(robot.brain);
-    if (repos) {
+    if (repos.length > 0) {
       reply = repos.join('\n');
     } else {
       reply = 'add repositories by saying "repo add url"';
