@@ -16,7 +16,7 @@ module.exports = class User {
     return new User(user);
   }
 
-  static all(brain){
+  static all(brain) {
     // TODO: ちゃんと返す
     // const users = brain.get('users');
     return [
@@ -33,7 +33,7 @@ module.exports = class User {
     ];
   }
  
-  static allGithubs(brain){
+  static allGithubs(brain) {
     return User.all().map(user => user.github);
   }
 
