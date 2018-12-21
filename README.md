@@ -26,6 +26,11 @@ You can start ninja-bot locally by running:
 
 And send slack message to bot.
 
+### Running ninja-bot on Heroku
+
+    % heroku config:add GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    % git push heroku master
+
 ### Configuration
 
 A few scripts (including some installed by default) require environment
