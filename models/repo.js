@@ -1,8 +1,8 @@
 module.exports = class Repo {
-  constructor(orgTitle) {
-    this.url = `https://github.com/${orgTitle}`
-    this.org = orgTitle.split('/')[0];
-    this.title = orgTitle.split('/')[1];
+  constructor(nameWithOwner) {
+    this.url = `https://github.com/${nameWithOwner}`
+    this.org = nameWithOwner.split('/')[0];
+    this.title = nameWithOwner.split('/')[1];
   }
 
   static all(brain){
@@ -19,13 +19,13 @@ module.exports = class Repo {
     return Repo.all().map(repo => repo.url);
   }
 
-  static add(brain, orgTitle) {
+  static add(brain, nameWithOwner) {
     // TODO: フォーマットどおりかバリデーション
     // TODO: 存在するかバリデーション
     // TODO: 重複しないようにバリデーション
     let repos = brain.get('repos');
     if (!repos) repos = [];
-    repos = repos.concat(orgTitle);
+    repos = repos.concat(nameWithOwner);
     brain.set('repos', repos);
     return true;
   }
