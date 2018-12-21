@@ -1,8 +1,10 @@
+const Pr = require('./pr');
+
 module.exports = class User {
   constructor(obj) {
-    this.github = obj.github;
+    this.ghName = obj.ghName;
     this.slackId = obj.slackId;
-    this.prCount = obj.prCount;
+    this.ghPrCount = obj.ghPrCount || -1;
   }
 
   static find(brain, slackId) {
@@ -21,31 +23,54 @@ module.exports = class User {
     // const users = brain.get('users');
     return [
       new User({
-        github: 'ggtmtmgg',
+        ghName: 'ggtmtmgg',
         slackId: 'slackId1',
-        prCount: 0,
       }),
       new User({
-        github: 'watanabeyu',
+        ghName: 'watanabeyu',
         slackId: 'slackId2',
-        prCount: 0,
       }),
     ];
   }
- 
-  static allGithubs(brain) {
-    return User.all().map(user => user.github);
+
+  static allGhNames(brain) {
+    return User.all().map(user => user.ghName);
   }
 
-  static updateGithub(brain, slackId, github) {
+  static updateGhName(brain, slackId, ghName) {
     let users = brain.get('users');
     if (!users) {
       users = {};
     }
     users[slackId] = {
-      github: github,
+      ghName: ghName,
+      slackId: slackId,
     };
     brain.set('users', users); // TODO: モデル側でsaveをする
     return true;
+  }
+
+  async ghPrs(){
+    const Pr = require('./pr');
+    this.prs = await Pr.byUser(this.ghName);
+    return this.prs;
+  }
+
+  async updatePrs(brain, res){
+    const Pr = require('./pr');
+    let users = brain.get('users');
+    let prs = await this.ghPrs();
+    users[this.slackId].ghPrCount = prs.length;
+    brain.set('users', users);
+    res.send(`updated ${this.ghName}'s pr count as ${prs.length}`);
+  }
+
+  info() {
+    if (this.ghName) return `
+      ID: ${this.slackId}
+      GitHub: @${this.ghName}
+      PR(This Month): ${this.ghPrCount}
+    `;
+    return 'Set github name by "user github AccountName"';
   }
 }
