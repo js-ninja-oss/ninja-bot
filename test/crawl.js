@@ -21,7 +21,7 @@ describe('test repository.coffee', function() {
     this.room.destroy();
   });
 
-  context('user asks adding github account', function() {
+  context('crawl github account', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);
@@ -30,17 +30,16 @@ describe('test repository.coffee', function() {
       }.bind(this));
     });
 
-    it('should add github accounts', function() {
+    it('should update user infomations', async function() {
       this.timeout(15000);
-      return co(function*() {
-        yield sleep(5000);
+      await co(function*() {
+        yield sleep(1000);
         yield this.room.user.say('user1', `user all`);
       }.bind(this));
 
-      expect(this.room.messages.slice(this.room.messages.length - 2)).to.eql([
-        ['user1', 'user all'],
-        ['hubot', `\n      ID: user1\n      GitHub: @${githubs[0]}\n      PR(All Time): -1\n      PR Count(This Month): -1\n      PR(This Month):\n      \n    \n--------\n\n      ID: user2\n      GitHub: @${githubs[1]}\n      PR(All Time): -1\n      PR Count(This Month): -1\n      PR(This Month):\n      \n    `],
-      ]);
+      const lastMessage = this.room.messages[this.room.messages.length - 1];
+      // NOTE: クロールに失敗して初期値のままだと"-1"を含んでいる
+      expect(lastMessage).not.to.match(/-1/);
     });
   });
 });
