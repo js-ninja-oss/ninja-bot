@@ -12,7 +12,7 @@ const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-describe('test repository.coffee', function() {
+describe('test crawl.js', function() {
 
   beforeEach(function() {
     this.room = helper.createRoom();
@@ -21,7 +21,7 @@ describe('test repository.coffee', function() {
     this.room.destroy();
   });
 
-  context('crawl github account', function() {
+  context('user asks "crawl all"', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);
@@ -31,7 +31,7 @@ describe('test repository.coffee', function() {
     });
 
     it('should update user infomations', async function() {
-      this.timeout(15000);
+      this.timeout(5000);
       await co(function*() {
         yield sleep(1000);
         yield this.room.user.say('user1', `user all`);

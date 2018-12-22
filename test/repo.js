@@ -10,7 +10,7 @@ const repos = [
 
 const repoUrls = repos.map(repo => `https://github.com/${repo}`);
 
-describe('test repository.coffee', function() {
+describe('test repo.js', function() {
   beforeEach(function() {
     this.room = helper.createRoom();
   });
@@ -18,7 +18,7 @@ describe('test repository.coffee', function() {
     this.room.destroy();
   });
 
-  context('user asks repositories to hubot', function() {
+  context('user asks "repo add repos"', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', 'repo list');
@@ -29,7 +29,7 @@ describe('test repository.coffee', function() {
       }.bind(this));
     });
 
-    it('should add repositories', function() {
+    it('should set repositories', function() {
       expect(this.room.messages).to.eql([
         ['user1', 'repo list'],
         ['hubot', 'add repositories by saying "repo add url"'],

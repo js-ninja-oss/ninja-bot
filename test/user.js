@@ -8,7 +8,7 @@ const githubs = [
   'yushimatenjin',
 ]
 
-describe('test repository.coffee', function() {
+describe('test user.js', function() {
   beforeEach(function() {
     this.room = helper.createRoom();
   });
@@ -16,7 +16,7 @@ describe('test repository.coffee', function() {
     this.room.destroy();
   });
 
-  context('user asks adding github account', function() {
+  context('user asks "user all"', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);

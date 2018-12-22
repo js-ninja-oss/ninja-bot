@@ -12,7 +12,7 @@ describe('test general.js', function () {
     this.room.destroy();
   });
 
-  describe('user asks adding github account', function () {
+  describe('user asks "ninja"', function () {
     beforeEach(function () {
       return co(function* () {
         yield this.room.user.say('user1', 'ninja');
@@ -20,7 +20,7 @@ describe('test general.js', function () {
       }.bind(this));
     });
 
-    it('should add github accounts', function () {
+    it('should replay "ninja!"', function () {
       expect(this.room.messages).to.eql([
         ['user1', 'ninja'],
         ['hubot', 'ninja!'],
