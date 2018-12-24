@@ -20,7 +20,7 @@ describe('test user.js', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);
-        yield this.room.user.say('user1', 'user all');
+        yield this.room.user.say('user1', 'user me');
         yield this.room.user.say('user2', `user github ${githubs[1]}`);
         yield this.room.user.say('user2', 'user all');
       }.bind(this));
@@ -30,7 +30,7 @@ describe('test user.js', function() {
       expect(this.room.messages).to.eql([
         ['user1', `user github ${githubs[0]}`],
         ['hubot', `I set your github account as @${githubs[0]}.`],
-        ['user1', 'user all'],
+        ['user1', 'user me'],
         ['hubot', `\n      ID: user1\n      GitHub: @${githubs[0]}\n      PR(All Time): -1\n      PR Count(This Month): -1\n      PR(This Month):\n      \n    `],
         ['user2', `user github ${githubs[1]}`],
         ['hubot', `I set your github account as @${githubs[1]}.`],

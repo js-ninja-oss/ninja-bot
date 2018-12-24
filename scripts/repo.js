@@ -7,7 +7,7 @@ module.exports = robot => {
     return res.send(`I added ${nameWithOwner} to repos list.`);
   });
 
-  return robot.hear(/repo list/i, res => {
+  robot.hear(/repo list/i, res => {
     const repos = Repo.allUrls(robot.brain);
     if (repos.length > 0) {
       reply = repos.join('\n');
