@@ -32,8 +32,8 @@ module.exports = class User {
     return User.all(brain).filter(user => !user.github.name)
   }
 
-  static allGhNames(brain) {
-    return User.all(brain).map(user => user.github.name);
+  static allIds(brain) {
+    return User.all(brain).map(user => user.id);
   }
 
   static updateGhName(brain, id, ghName) {
