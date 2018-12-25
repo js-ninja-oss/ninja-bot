@@ -6,12 +6,7 @@ module.exports = robot => {
   });
 
   robot.hear(/test/i, res => {
-    const brainUsers = Object.values(robot.brain.data.users);
-    brainUsers.forEach(brainUser => {
-      const user = User.find(robot.brain, brainUser.id);
-      console.log(user);
-    });
-
+    console.log(User.allWithEmpty(robot.brain));
     return res.send('ninja!');
   });
 };

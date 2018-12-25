@@ -22,6 +22,11 @@ module.exports = class User {
     return Object.values(users).map(user => new User(user))
   }
 
+  static allWithEmpty(brain) {
+    const userIds = Object.keys(brain.data.users);
+    return userIds.map(userId => User.find(brain, userId));
+  }
+
   static allGhNames(brain) {
     return User.all().map(user => user.ghName);
   }
