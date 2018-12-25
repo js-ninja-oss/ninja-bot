@@ -20,4 +20,10 @@ module.exports = robot => {
     const user = User.find(robot.brain, userId);
     return res.send(user.info());
   });
+
+  robot.hear(/user no github/i, res => {
+    const users = User.noGithub(robot.brain);
+    const replay = users.map(user => user.info()).join("\n--------\n");
+    return res.send(replay);
+  });
 };

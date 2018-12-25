@@ -18,21 +18,22 @@ module.exports = class User {
   static find(brain, id) {
     const users = brain.get('users');
     if (users && users[id]) return new User(users[id]);
-    return new User(brain.userForId(id));
+    const user = new User(brain.userForId(id));
+    user.save(brain);
+    return user;
   }
 
   static all(brain) {
-    const users = brain.get('users');
-    return Object.values(users).map(user => new User(user))
-  }
-
-  static allWithEmpty(brain) {
     const userIds = Object.keys(brain.data.users);
     return userIds.map(userId => User.find(brain, userId));
   }
 
+  static noGithub(brain) {
+    return User.all(brain).filter(user => !user.github.name)
+  }
+
   static allGhNames(brain) {
-    return User.all().map(user => user.github.name);
+    return User.all(brain).map(user => user.github.name);
   }
 
   static updateGhName(brain, id, ghName) {
@@ -57,9 +58,10 @@ module.exports = class User {
   }
 
   info() {
-    if (this.github) return `
+    if (this.github.name) return `
       ID: ${this.id}
-      GitHub: @${this.github.name}
+      Slack: \`@${this.slack.name}\`
+      GitHub: \`@${this.github.name}\`
       PR(All Time): ${this.github.prCount}
       PR Count(This Month): ${this.github.prCountMonth}
       PR(This Month):
