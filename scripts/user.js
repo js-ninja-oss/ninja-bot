@@ -16,8 +16,8 @@ module.exports = robot => {
   });
 
   robot.hear(/user me/i, res => {
-    const slackId = res.message.user.id;
-    const user = User.find(robot.brain, slackId);
+    const userId = res.message.user.id;
+    const user = User.find(robot.brain, userId);
     return res.send(user.info());
   });
 };
