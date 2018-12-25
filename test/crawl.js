@@ -31,13 +31,13 @@ describe('test crawl.js', function() {
     });
 
     it('should update user infomations', async function() {
-      this.timeout(5000);
+      this.timeout(10000);
       await co(function*() {
-        yield sleep(1000);
+        yield sleep(5000);
         yield this.room.user.say('user1', `user all`);
       }.bind(this));
 
-      const lastMessage = this.room.messages[this.room.messages.length - 1];
+      const lastMessage = this.room.messages[this.room.messages.length - 1][1];
       // NOTE: クロールに失敗して初期値のままだと"-1"を含んでいる
       expect(lastMessage).not.to.match(/-1/);
     });

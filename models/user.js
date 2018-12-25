@@ -5,37 +5,14 @@ module.exports = class User {
     this.id = obj.id;
     this.name = obj.name;
     this.realName = obj.realName;
-
-    const github = obj.github || {};
-    this.github = {
-      name: github.name,
-      prs: github.prs || [],
-      prCount: github.prCount || -1,
-      prsMonth: github.prsMonth || [],
-      prCountMonth: github.prCountMonth || -1,
-    }
-
-    const slack = obj.slack || {}
-    this.slack = {
-      id: slack.id,
-      teamId: slack.team_id,
-      name: slack.name,
-      deleted: slack.deleted,
-      color: slack.color,
-      realName: slack.real_time,
-      tz: slack.tz,
-      tzLabel: slack.tz_label,
-      tzOffset: slack.tz_offset,
-      profile: slack.profile,
-      isAdmin: slack.is_admin,
-      isOwner: slack.is_owner,
-      isPrimaryOwner: slack.is_primary_owner,
-      isRestricted: slack.is_restricted,
-      isUltraRestricted: slack.is_ultra_restricted,
-      isBot: slack.is_bot,
-      isAppUser: slack.is_app_user,
-      updated: slack.updated,
-    }
+    this.github = obj.github || {
+      name: '',
+      prCount: -1,
+      prs: [],
+      prCountMonth: -1,
+      prsMonth: [],
+    };
+    this.slack = obj.slack || {}
   }
 
   static find(brain, id) {
@@ -80,8 +57,8 @@ module.exports = class User {
   }
 
   info() {
-    if (this.ghName) return `
-      ID: ${this.slackId}
+    if (this.github) return `
+      ID: ${this.id}
       GitHub: @${this.github.name}
       PR(All Time): ${this.github.prCount}
       PR Count(This Month): ${this.github.prCountMonth}
@@ -94,7 +71,7 @@ module.exports = class User {
   save(brain) {
     let users = brain.get('users');
     if (!users) users = {};
-    users[this.slackId] = this;
+    users[this.id] = this;
     brain.set('users', users);
   }
 }

@@ -18,17 +18,17 @@ module.exports = class Pr {
   }
 
   static async byUser(user) {
-    const prs = await ghClient.userPrs(user.ghName);
+    const prs = await ghClient.userPrs(user.github.name);
     return prs.map(pr => new Pr(pr.node));
   }
 
   static async updatePrCount(brain, user, onFinish) {
     const ghPrs = await Pr.byUser(user);
     const ghPrsMonth = filterMonth(ghPrs);
-    user.ghPrs = ghPrs.map(pr => pr.url);
-    user.ghPrCount = ghPrs.length;
-    user.ghPrsMonth = ghPrsMonth.map(pr => pr.url);
-    user.ghPrCountMonth = ghPrsMonth.length;
+    user.github.prs = ghPrs.map(pr => pr.url);
+    user.github.prCount = ghPrs.length;
+    user.github.prsMonth = ghPrsMonth.map(pr => pr.url);
+    user.github.prCountMonth = ghPrsMonth.length;
     user.save(brain);
     onFinish(user);
   }
