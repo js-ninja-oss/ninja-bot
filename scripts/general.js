@@ -5,8 +5,8 @@ module.exports = robot => {
     return res.send('ninja!');
   });
 
-  robot.hear(/test/i, res => {
-    console.log(User.allWithEmpty(robot.brain));
-    return res.send('ninja!');
+  robot.hear(/reset khatbehu/i, res => {
+    robot.brain.remove('users');
+    return res.send('reset!');
   });
 };

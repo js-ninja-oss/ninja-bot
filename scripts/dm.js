@@ -3,9 +3,7 @@ const User = require('../models/user');
 module.exports = robot => {
   robot.hear(/dm ask github/i, res => {
     User.noGithub(robot.brain).forEach(user => {
-      if (user.id === 'UD08Z6LPP') { // TODO: remove condition
-        robot.messageRoom(user.id, 'Please tell me your GitHub acount by saying like "user github ggtmtmgg"');
-      }
+      robot.messageRoom(user.id, 'Please tell me your GitHub acount by saying like "user github ggtmtmgg"');
     });
   });
 };
