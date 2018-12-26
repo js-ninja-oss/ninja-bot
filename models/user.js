@@ -38,7 +38,6 @@ module.exports = class User {
 
   static updateGhName(brain, id, ghName) {
     const user = User.find(brain, id);
-    console.log('debug2 id: ', id);
     if (!user.github) user.github = {};
     user.github.name = ghName;
     user.save(brain);
