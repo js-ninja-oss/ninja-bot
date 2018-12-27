@@ -12,20 +12,20 @@ describe('test general.js', function () {
     this.room.destroy();
   });
 
-  describe('user asks "ninja"', function () {
+  describe('user asks "ninja hello"', function () {
     beforeEach(function () {
       return co(function* () {
-        yield this.room.user.say('user1', 'ninja');
-        yield this.room.user.say('user2', 'ninja');
+        yield this.room.user.say('user1', 'ninja hello');
+        yield this.room.user.say('user2', 'ninja hello');
       }.bind(this));
     });
 
     it('should replay "ninja!"', function () {
       expect(this.room.messages).to.eql([
-        ['user1', 'ninja'],
-        ['hubot', 'ninja!'],
-        ['user2', 'ninja'],
-        ['hubot', 'ninja!']
+        ['user1', 'ninja hello'],
+        ['hubot', 'hello!'],
+        ['user2', 'ninja hello'],
+        ['hubot', 'hello!']
       ]);
     });
   });
