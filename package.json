@@ -6,6 +6,7 @@
   "description": "A bot for JS Ninja",
   "dependencies": {
     "config": "^3.0.1",
+    "dotenv": "^6.2.0",
     "github-api": "^3.0.0",
     "graphql-request": "^1.8.2",
     "hubot": "^3.1.1",
