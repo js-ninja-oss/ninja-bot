@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 module.exports = (robot) => {
-  robot.commands.push('ninja - Reply ninja!');
+  robot.commands.push('ninja - Replys ninja!');
   robot.hear(/ninja/i, res => res.send('ninja!'));
 
   robot.commands.push('ninja help - Displays all of the help commands that this bot knows about.');
