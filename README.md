@@ -18,15 +18,10 @@ available, etc!
 
 You can test your hubot by running the following.
 
-Generate config/default.json as like:
-
-```json
-{
-  "github": {
-    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  }
-}
+``` console
+$ touch .env
 ```
+set the values following `./.env-example`
 
 You can start ninja-bot locally by running:
 
