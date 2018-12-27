@@ -51,7 +51,7 @@ module.exports = class User {
   }
 
   async updatePrs(brain, res) {
-    const onFinish = user => res.send(user.info());
+    const onFinish = user => res.send(`updated ${user.github.name}`);
     Pr.updatePrCount(brain, this, onFinish);
   }
 

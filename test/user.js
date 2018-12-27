@@ -16,12 +16,12 @@ describe('test user.js', function() {
     this.room.destroy();
   });
 
-  context('user asks "user all"', function() {
+  context('user asks "user all --github"', function() {
     beforeEach(function() {
       return co(function*() {
         yield this.room.user.say('user1', `user github ${githubs[0]}`);
         yield this.room.user.say('user2', `user github ${githubs[1]}`);
-        yield this.room.user.say('user2', 'user all');
+        yield this.room.user.say('user2', 'user all --github');
       }.bind(this));
     });
 
