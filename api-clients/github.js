@@ -1,10 +1,11 @@
 /* https://developer.github.com/v4/explorer/ */
-const GraphQLClient = require('graphql-request').GraphQLClient;
+const { GraphQLClient } = require('graphql-request');
+
 const endpoint = 'https://api.github.com/graphql';
 const token = process.env.GITHUB_TOKEN;
 const headers = {
-  'Authorization': `Bearer ${token}`,
-}
+  Authorization: `Bearer ${token}`,
+};
 
 const userPrs = async (name) => {
   const variables = {};
@@ -23,12 +24,12 @@ const userPrs = async (name) => {
         }
       }
     }
-  }`
+  }`;
 
-  const client = new GraphQLClient(endpoint, { headers: headers });
+  const client = new GraphQLClient(endpoint, { headers });
   const data = await client.request(query, variables);
   return data.user.pullRequests.edges;
-}
+};
 
 const repoPrs = async (nameWithOwner) => {
   const variables = {};
@@ -49,12 +50,12 @@ const repoPrs = async (nameWithOwner) => {
         }
       }
     }
-  }`
+  }`;
 
-  const client = new GraphQLClient(endpoint, { headers: headers })
-  const data = await client.request(query, variables)
-  return data.repository.pullRequests.edges
-}
+  const client = new GraphQLClient(endpoint, { headers });
+  const data = await client.request(query, variables);
+  return data.repository.pullRequests.edges;
+};
 
 module.exports = {
   repoPrs,

@@ -12,7 +12,7 @@ module.exports = class User {
       prCountMonth: -1,
       prsMonth: [],
     };
-    this.slack = obj.slack || {}
+    this.slack = obj.slack || {};
   }
 
   static find(brain, id) {
@@ -29,7 +29,7 @@ module.exports = class User {
   }
 
   static noGithub(brain) {
-    return User.all(brain).filter(user => !user.github.name)
+    return User.all(brain).filter(user => !user.github.name);
   }
 
   static allIds(brain) {
@@ -46,33 +46,31 @@ module.exports = class User {
   }
 
   async ghPrs() {
-    const Pr = require('./pr');
     this.prs = await Pr.byUser(this);
     return this.prs;
   }
 
   async updatePrs(brain, res) {
-    const Pr = require('./pr');
-    const onFinish = user => res.send(user.info());
-    Pr.updatePrCount(brain, this, onFinish)
+    const onFinish = user => res.send(`updated ${user.github.name}`);
+    Pr.updatePrCount(brain, this, onFinish);
   }
 
   info(flg) {
     if (this.github.name) {
       const response = [`Slack: \`@${this.slack.name}\``];
 
-      if (flg["--github"]) {
-        response.push(`GitHub: \`@${this.github.name}\``)
+      if (flg['--github']) {
+        response.push(`GitHub: \`@${this.github.name}\``);
       }
 
       response.push(`PR(All Time): ${this.github.prCount}`);
       response.push(`PR Count(This Month): ${this.github.prCountMonth}`);
 
-      if (flg["--pr-url"] && this.github.prsMonth.length > 0) {
-        response.push(`PR(This Month):\n${this.github.prsMonth.join('\n')}`)
+      if (flg['--pr-url'] && this.github.prsMonth.length > 0) {
+        response.push(`PR(This Month):\n${this.github.prsMonth.join('\n')}`);
       }
 
-      return response.join("\n");
+      return response.join('\n');
     }
 
     return null;
@@ -84,4 +82,4 @@ module.exports = class User {
     users[this.id] = this;
     brain.set('users', users);
   }
-}
+};
