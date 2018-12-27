@@ -32,6 +32,7 @@
     "mocha": "^5.2.0"
   },
   "scripts": {
+    "start": "./bin/hubot",
     "test": "mocha",
     "test:watch": "mocha --watch"
   }
