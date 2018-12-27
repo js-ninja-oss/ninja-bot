@@ -9,7 +9,7 @@ module.exports = robot => {
 
   robot.commands.push('ninja help - Displays all of the help commands that this bot knows about.');
   robot.hear(/(ninja help|help)/i, res => {
-    const commands = robot.commands;
+    const commands = robot.commands.filter(c => c.includes('ninja'));
     return res.send(commands.join('\n'));
   });
 
