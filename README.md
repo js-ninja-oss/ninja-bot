@@ -16,9 +16,17 @@ available, etc!
 
 ### Running ninja-bot Locally
 
-You can test your hubot by running the following, however some plugins will not
-behave as expected unless the [environment variables](#configuration) they rely
-upon have been set.
+You can test your hubot by running the following.
+
+Generate config/default.json as like:
+
+```json
+{
+  "github": {
+    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
 
 You can start ninja-bot locally by running:
 
@@ -52,9 +60,6 @@ Rather than recreate the various methods and best practices in achieving this,
 it's suggested that you search for a dedicated guide focused on your OS.
 
 ### Scripting
-
-An example script is included at `scripts/example.coffee`, so check it out to
-get started, along with the [Scripting Guide][scripting-docs].
 
 For many common tasks, there's a good chance someone has already one to do just
 the thing.
