@@ -9,10 +9,26 @@ module.exports = robot => {
     return res.send('I set your github account as @' + ghName + '.');
   });
 
-  robot.hear(/user all/i, res => {
+  robot.hear(/user all(\s?[\-\w]*){0,}/i, res => {
+    const args = res.message.text.split(" ");
+
+    const flg = {
+      "--github": false,
+      "--pr-url": false,
+    }
+
+    args.forEach(v => {
+      flg[v] = true;
+    })
+
     const users = User.all(robot.brain);
-    const replay = users.map(user => user.info()).join("\n--------\n");
-    return res.send(replay);
+    const userInfos = users.map(user => user.info(flg)).filter(v => v);
+
+    if (userInfos.length === 0) {
+      return res.send("No one registerd...");
+    }
+
+    return res.send(userInfos.join("\n--------\n"));
   });
 
   robot.hear(/user me/i, res => {

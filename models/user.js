@@ -45,29 +45,37 @@ module.exports = class User {
     return true;
   }
 
-  async ghPrs(){
+  async ghPrs() {
     const Pr = require('./pr');
     this.prs = await Pr.byUser(this);
     return this.prs;
   }
 
-  async updatePrs(brain, res){
+  async updatePrs(brain, res) {
     const Pr = require('./pr');
     const onFinish = user => res.send(user.info());
     Pr.updatePrCount(brain, this, onFinish)
   }
 
-  info() {
-    if (this.github.name) return `
-      ID: ${this.id}
-      Slack: \`@${this.slack.name}\`
-      GitHub: \`@${this.github.name}\`
-      PR(All Time): ${this.github.prCount}
-      PR Count(This Month): ${this.github.prCountMonth}
-      PR(This Month):
-      ${this.github.prsMonth.join('\n')}
-    `;
-    return 'Set github name by "user github AccuntName"';
+  info(flg) {
+    if (this.github.name) {
+      const response = [`Slack: \`@${this.slack.name}\``];
+
+      if (flg["--github"]) {
+        response.push(`GitHub: \`@${this.github.name}\``)
+      }
+
+      response.push(`PR(All Time): ${this.github.prCount}`);
+      response.push(`PR Count(This Month): ${this.github.prCountMonth}`);
+
+      if (flg["--pr-url"] && this.github.prsMonth.length > 0) {
+        response.push(`PR(This Month):\n${this.github.prsMonth.join('\n')}`)
+      }
+
+      return response.join("\n");
+    }
+
+    return null;
   }
 
   save(brain) {
