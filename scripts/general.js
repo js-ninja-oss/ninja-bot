@@ -1,8 +1,8 @@
 const User = require('../models/user');
 
 module.exports = (robot) => {
-  robot.commands.push('ninja - Reply ninja!');
-  robot.hear(/ninja/i, res => res.send('ninja!'));
+  robot.commands.push('ninja - Replys ninja!');
+  robot.hear(/ninja hello/i, res => res.send('hello!'));
 
   robot.commands.push('ninja help - Displays all of the help commands that this bot knows about.');
   robot.hear(/(ninja help|help)/i, (res) => {
@@ -11,7 +11,7 @@ module.exports = (robot) => {
   });
 
   robot.commands.push('ninja kick me? - Tells you wheather ninja-bot will kick you, or not.');
-  robot.hear(/kick me\?/i, (res) => {
+  robot.hear(/ninja kick me\?/i, (res) => {
     const userId = res.message.user.id;
     const user = User.find(robot.brain, userId);
     let message;

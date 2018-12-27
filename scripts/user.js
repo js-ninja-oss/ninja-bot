@@ -15,14 +15,16 @@ const userFlg = (text) => {
 };
 
 module.exports = (robot) => {
-  robot.hear(/user github (\w*)/i, (res) => {
+  robot.commands.push('ninja github <GitHub account id> - Registers your GitHub account.');
+  robot.hear(/ninja github (\w*)/i, (res) => {
     const ghName = res.match[1];
     const userId = res.message.user.id;
     User.updateGhName(robot.brain, userId, ghName);
     return res.send(`I set your github account as @${ghName}.`);
   });
 
-  robot.hear(/user all(\s?[-\w]*){0,}/i, (res) => {
+  robot.commands.push('ninja user all [options]- Displays all user\'s info.');
+  robot.hear(/ninja user all(\s?[-\w]*){0,}/i, (res) => {
     const flg = userFlg(res.message.text);
 
     const users = User.all(robot.brain);
@@ -35,7 +37,8 @@ module.exports = (robot) => {
     return res.send(userInfos.join('\n--------\n'));
   });
 
-  robot.hear(/user me(\s?[-\w]*){0,}/i, (res) => {
+  robot.commands.push('ninja user me [options] - Displays your info.');
+  robot.hear(/ninja user me(\s?[-\w]*){0,}/i, (res) => {
     const flg = userFlg(res.message.text);
 
     const userId = res.message.user.id;
@@ -43,7 +46,8 @@ module.exports = (robot) => {
     return res.send(user.info(flg));
   });
 
-  robot.hear(/user no github/i, (res) => {
+  robot.commands.push('ninja user no github [optoins] - Displays users which still doesn\'t register their GitHub account..');
+  robot.hear(/ninja user no github/i, (res) => {
     const flg = userFlg(res.message.text);
 
     const users = User.noGithub(robot.brain);
