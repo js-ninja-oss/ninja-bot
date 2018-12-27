@@ -1,11 +1,10 @@
-const User = require('../models/user');
 const ghClient = require('../api-clients/github');
 
 const dateToMonth = date => date.getYear() * 12 + date.getMonth();
-const filterMonth = prs => {
+const filterMonth = (prs) => {
   const thisMonth = dateToMonth(new Date());
   return prs.filter(pr => dateToMonth(new Date(pr.createdAt)) === thisMonth);
-}
+};
 
 module.exports = class Pr {
   constructor(obj) {
@@ -32,4 +31,4 @@ module.exports = class Pr {
     user.save(brain);
     onFinish(user);
   }
-}
+};
