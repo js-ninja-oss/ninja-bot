@@ -21,12 +21,12 @@ describe('test crawl.js', function() {
     this.room.destroy();
   });
 
-  context('user asks "crawl all"', function() {
+  context('user asks "ninja crawl all"', function() {
     beforeEach(function() {
       return co(function*() {
-        yield this.room.user.say('user1', `user github ${githubs[0]}`);
-        yield this.room.user.say('user2', `user github ${githubs[1]}`);
-        yield this.room.user.say('user2', 'crawl all');
+        yield this.room.user.say('user1', `ninja github ${githubs[0]}`);
+        yield this.room.user.say('user2', `ninja github ${githubs[1]}`);
+        yield this.room.user.say('user2', 'ninja crawl all');
       }.bind(this));
     });
 
@@ -34,7 +34,7 @@ describe('test crawl.js', function() {
       this.timeout(10000);
       await co(function*() {
         yield sleep(5000);
-        yield this.room.user.say('user1', `user all`);
+        yield this.room.user.say('user1', `ninja user all`);
       }.bind(this));
 
       const lastMessage = this.room.messages[this.room.messages.length - 1][1];
